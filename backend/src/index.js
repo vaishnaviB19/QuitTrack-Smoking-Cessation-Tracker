@@ -12,7 +12,8 @@ import userRoutes from "./routes/user.routes.js";
 import User from "./models/user.model.js";
 dotenv.config();
 const app = express();
-const PORT = 5000|| process.env.PORT;
+const PORT = process.env.PORT || 5000;
+
 
 // Middleware
 app.use(express.json());
@@ -33,7 +34,7 @@ app.get("/api/test", (req, res) => {
 });
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log("MongoDB connection error:", err));
 
