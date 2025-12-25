@@ -1,4 +1,2 @@
-Backend/node_modules/
+node_modules
 .env
-Backend/seed.js
-node_modules/
