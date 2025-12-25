@@ -130,20 +130,28 @@ export const getDashboardData = async (req, res) => {
 
            
 
-    /* ================= SAVINGS (DYNAMIC) ================= */
+/* ================= SAVINGS (CORRECTED) ================= */
 let cigarettesAvoided = 0;
 let savings = 0;
 
 const baseline = Math.ceil(Number(goal?.currentBaseline));
 
 if (baseline > 0) {
-  logs.forEach((log) => {
-    const avoided = Math.max(0, baseline - log.quantity);
-    cigarettesAvoided += avoided;
-    savings += avoided * (log.pricePerCigarette || 0);
-  });
-}
+  const totalSmoked = logs.reduce(
+    (sum, log) => sum + Number(log.quantity || 0),
+    0
+  );
 
+  cigarettesAvoided = Math.max(0, baseline - totalSmoked);
+
+  const avgPrice =
+    logs.length > 0
+      ? logs.reduce((sum, log) => sum + Number(log.pricePerCigarette || 0), 0) /
+        logs.length
+      : 0;
+
+  savings = cigarettesAvoided * avgPrice;
+}
 
     /* ================= TODAY PROGRESS ================= */
     const dailyProgress =
