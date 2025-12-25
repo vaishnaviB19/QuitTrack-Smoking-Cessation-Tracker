@@ -5,6 +5,6 @@ import { getGoal, saveGoal } from "../controllers/goal.controller.js";
 const router = express.Router();
 
 router.get("/", verifyToken, getGoal);
-router.put("/", verifyToken, saveGoal);
+router.post("/", verifyToken, saveGoal);
 
 export default router;
