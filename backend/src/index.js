@@ -13,11 +13,28 @@ import User from "./models/user.model.js";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://quittrack.vercel.app"
+];
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+app.use(cors({
+  origin: function (origin, callback) {
+    if (
+      !origin || // allow server-to-server & Postman
+      allowedOrigins.includes(origin) ||
+      origin.endsWith(".vercel.app")
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
+
 app.use(cookieParser());
 
 // Routes
