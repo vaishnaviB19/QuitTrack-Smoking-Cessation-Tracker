@@ -41,17 +41,13 @@ const SignupPage = () => {
         email: formData.email,
         password: formData.password,
       });
-      const { user, token, isNew } = res.data; // ✅ destructure from backend response
+      const { user, token } = res.data; // ✅ destructure from backend response
 
     // Store user in localStorage
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("token", token);
 
-       if (isNew) {
         navigate("/goal"); 
-      } else {
-        navigate("/dashboard");
-      }
     } catch (err) {
       if (err.response?.status === 409) {
         setError("User with this email already exists.");
