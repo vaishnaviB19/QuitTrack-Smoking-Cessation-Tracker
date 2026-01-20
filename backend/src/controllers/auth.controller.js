@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
   try {
-    console.log(req.body);
     const { username, email, password } = req.body;
 
     // Check existing user
@@ -17,7 +16,7 @@ export const signup = async (req, res) => {
 
     // Create new user
     const user = await User.create({
-      fullName: username,
+      username: username,
       email,
       password: hashedPassword,
     });
@@ -72,6 +71,7 @@ export const login = async (req, res) => {
     });
 
   } catch (error) {
+    console.error("LOGIN ERROR:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };

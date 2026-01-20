@@ -177,7 +177,7 @@ if (baselinePerDay > 0 && dateRange.length > 0) {
 
     /* ================= RESPONSE ================= */
     res.json({
-      name:user.fullName || user.username,
+      name: user.username,
       smokeFreeDays,
       currentStreak,
       longestStreak,
